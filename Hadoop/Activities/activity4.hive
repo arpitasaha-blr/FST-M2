@@ -1,0 +1,19 @@
+Drop table files;
+drop table word_counts;
+
+create table files (line string);
+
+load data local inpath'/root/input.txt' into table files;
+
+create table word_counts as
+select word , count(1) as count from
+(select explode(split(line,'')) as word from files) w
+group by word
+order by word;
+
+
+
+
+
+
+
